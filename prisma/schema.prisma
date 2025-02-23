@@ -27,7 +27,7 @@ model User {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   transactions Transaction[]
-  reports      Report[]
+  // reports      Report[]
 }
 
 model Account {
@@ -103,13 +103,13 @@ enum Currency {
   MXN
 }
 
-model Report {
-  id          String   @id @default(cuid())
-  generatedAt DateTime @default(now())
-  description String
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
+// model Report {
+//   id          String   @id @default(cuid())
+//   generatedAt DateTime @default(now())
+//   description String
+//   userId      String
+//   user        User     @relation(fields: [userId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
