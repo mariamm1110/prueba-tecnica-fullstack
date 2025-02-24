@@ -1,12 +1,16 @@
-import { prisma } from "@/lib/prisma";
-import { AuthData, Context } from "@/types/index";
+// graphql/context.ts
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export async function createContext(req?: any): Promise<Context> {
-    // Extract user from request (if applicable)
-    const authData: AuthData = req?.user ?? { id: "", role: "USER" };
-  
-    return { 
-      db: prisma,  // ✅ Ensure Prisma is available
-      authData
-    };
-  }
+export const createContext = async ({ req, res }: { req: any; res: any }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  return {
+    db: prisma,
+    authData: session?.user ?? null,
+  };
+};
+
+export type Context = Awaited<ReturnType<typeof createContext>>;

@@ -34,6 +34,7 @@ export const userMutations = {
         return db.user.update({
             where: { id },
             data: updateData,
+            include: { role: true }
         })
     },
 

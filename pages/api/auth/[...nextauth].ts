@@ -1,60 +1,127 @@
-import NextAuth from "next-auth";
+// pages/api/auth/[...nextauth].ts
+import NextAuth, { NextAuthOptions } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 
-export default NextAuth({
+
+export const authOptions: NextAuthOptions ={
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
-  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     Auth0Provider({
       clientId: process.env.AUTH0_CLIENT_ID!,
       clientSecret: process.env.AUTH0_CLIENT_SECRET!,
       issuer: `https://${process.env.AUTH0_ISSUER}`,
+      authorization: {
+        params: {
+          prompt: 'login'
+        },
+      }
     }),
   ],
 
+  session: {
+    strategy: "jwt",
+  },
+
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async signIn({ user, account }) {
-      const existingUser = await prisma.user.findUnique({ where: { email: user.email! } });
-
-      if (!existingUser) {
-        const role = await prisma.role.findUnique({ where: { name: "USER" } });
-
-        if (!role) throw new Error("Default USER role is missing.");
-
-        await prisma.user.create({
-          data: {
-            email: user.email!,
-            name: user.name ?? "Default User",
-            image: user.image,
-            role: { connect: { id: role.id } },
-          },
+      if (user.email && account) {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email },
+          include: { accounts: true },
         });
+
+        const defaultRole = await prisma.role.findUnique({
+          where: { name: "USER" },
+        });
+
+        if (!defaultRole) {
+          throw new Error("Default USER role is missing in the database.");
+        }
+
+        if (!existingUser) {
+          // Create new user if not existing
+          const newUser = await prisma.user.create({
+            data: {
+              email: user.email,
+              name: user.name ?? user.email.split("@")[0],
+              image: user.image,
+              role: {
+                connect: { id: defaultRole.id },
+              },
+              accounts: {
+                create: {
+                  type: account.type,
+                  provider: account.provider,
+                  providerAccountId: account.providerAccountId,
+                  refresh_token: account.refresh_token,
+                  access_token: account.access_token,
+                  expires_at: account.expires_at,
+                  token_type: account.token_type,
+                  scope: account.scope,
+                  id_token: account.id_token,
+                  session_state: account.session_state,
+                },
+              },
+            },
+          });
+        } else if (existingUser && existingUser.accounts.length === 0) {
+          // Create account if existing user but missing account
+          await prisma.account.create({
+            data: {
+              userId: existingUser.id,
+              type: account.type,
+              provider: account.provider,
+              providerAccountId: account.providerAccountId,
+              refresh_token: account.refresh_token,
+              access_token: account.access_token,
+              expires_at: account.expires_at,
+              token_type: account.token_type,
+              scope: account.scope,
+              id_token: account.id_token,
+              session_state: account.session_state,
+            },
+          });
+        }
       }
 
       return true;
     },
 
     async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.role = (await prisma.user.findUnique({
-          where: { id: user.id },
+      if (user?.email) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email },
           include: { role: true },
-        }))?.role.name;
+        });
+
+        if (dbUser) {
+          token.id = dbUser.id;
+          token.role = dbUser.role.name;
+        }
       }
+
+      // if (trigger === 'update' && session?.role) {
+      //   token.role = session.role;
+      // }
+
       return token;
     },
 
     async session({ session, token }) {
-      console.log(token);
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as string;
-      }
+      session.user.id = token.id as string;
+      session.user.role = token.role as string;
       return session;
     },
   },
-});
+  events: {
+    async signOut({ token }) {
+      await fetch(`https://${process.env.AUTH0_ISSUER}/v2/logout?client_id=${process.env.AUTH0_CLIENT_ID}`);
+    },
+  },
+};
+
+export default NextAuth(authOptions);

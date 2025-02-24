@@ -10,6 +10,7 @@ export const userResolvers = {
                 where: { userId: parent.id }
             });
         },
+        role: (parent: any) => parent.role.name,
     },
 
     Query: {...userQueries},

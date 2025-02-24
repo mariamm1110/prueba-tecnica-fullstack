@@ -19,5 +19,13 @@ export const userQueries = {
             throw new Error("Not authorized");
         }
         return db.user.findUnique({ where: { email } });
+    },
+
+    getUserById: async (_: any, { id }: { id: string }, { db, authData }: Context) => {
+        if (!authData || authData.role !== "ADMIN") {
+            throw new Error("Not authorized");
+        }
+        return db.user.findUnique({ where: { id }, include: { role: true } });
     }
+    
 }

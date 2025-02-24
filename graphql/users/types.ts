@@ -20,6 +20,7 @@ export const userTypes = gql`
     extend type Query {
         getUsers: [User!]!
         getUserByEmail(email: String!): User
+        getUserById(id: ID!): User
     }
         
     extend type Mutation {

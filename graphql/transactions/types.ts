@@ -10,7 +10,14 @@ export const transactionTypes = gql`
     currency: Currency!
     type: TransactionType!
     user: User!
-    iduser: ID
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: Role!
+    transactions: [Transaction]!
 }
 
 enum Currency {
@@ -31,7 +38,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    createTransaction(amount: Float!, concept: String!, date: DateTime, type: TransactionType!, currency: String ): Transaction
+    createTransaction(amount: Float!, concept: String!, date: DateTime, type: TransactionType!, currency: Currency!, userId: String ): Transaction
     deleteTransaction(id: ID!): Boolean
 }
     

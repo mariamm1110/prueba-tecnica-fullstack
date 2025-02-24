@@ -1,12 +1,31 @@
 import { Context } from "@/types";
 import { Currency, TransactionType } from "@prisma/client";
 import { GraphQLError } from "graphql";
+import { useSession } from "next-auth/react";
 
 export const transactionMutations = {
-    createTransaction: async (_:any, { amount, concept, type, currency, id }: { amount: number, concept: string, type: string, currency: string, id?:string}, { db, authData }: Context) => {
-        // if (!authData || authData.role !== "ADMIN") {
-        //     throw new Error("Not authorized");
-        // }
+
+    
+
+    createTransaction: async (_:any, 
+        { 
+            amount, 
+            concept, 
+            type, 
+            currency, 
+            userId 
+        }: { 
+            amount: number, 
+            concept: string, 
+            type: string, 
+            currency: string, 
+            userId:string}, 
+            { db, authData }: Context
+        ) => {
+        
+        if (!authData || authData.role !== "ADMIN") {
+            throw new Error("Not authorized");
+        }
 
         if (!Object.values(TransactionType).includes(type as TransactionType)) {
             throw new Error("Invalid transaction type");
@@ -23,7 +42,7 @@ export const transactionMutations = {
                 type: type as TransactionType,
                 currency: currency as Currency,
                 date: new Date(),
-                userId: authData.id 
+                userId: authData.id
             },
         });
     },
