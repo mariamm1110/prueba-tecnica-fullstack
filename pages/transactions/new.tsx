@@ -12,7 +12,7 @@ export default function NewTransactionPage() {
 
     useEffect(() => {
       if (status === "loading") return;
-      if(!session ){ // falta || session.user.role !== "admin"
+      if(!session || session.user.role !== "ADMIN"){ 
         router.push("/api/auth/signin");
       }
     }, [session, status, router]);

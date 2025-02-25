@@ -11,7 +11,9 @@ export const userQueries = {
             throw new Error("Database connection is missing.");
           }
 
-        return db.user.findMany();
+        return db.user.findMany({
+            include: { role: true }
+        });
     },
 
     getUserByEmail: async (_:any, { email }: { email: string }, { db, authData }: Context) => {

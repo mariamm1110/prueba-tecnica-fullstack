@@ -1,3 +1,4 @@
+import AdminOnly from "@/components/ui/atomic-design/organisms/AdminOnly";
 import ReportTemplate from "@/components/ui/templates/ReportTemplate";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
@@ -10,8 +11,8 @@ const ReportsPage: NextPage = () => {
     if (status === "loading") return <p>Cargando...</p>
 
     if (!session || session.user.role !== "ADMIN") {
-        router.push("/");
-        return null;
+        
+        return <AdminOnly/>;
     }
 
     return <ReportTemplate />

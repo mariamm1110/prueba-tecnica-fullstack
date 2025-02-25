@@ -47,11 +47,11 @@ const UserForm = ({ userId, initialName, initialRole }: UserFormProps) => {
   const noChangesMade = name === initialName && role === initialRole;
 
   return (
-    <div className="bg-gray-200 p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Editar Usuario</h2>
+    <div className="bg-blue p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4 text-orange">Editar Usuario</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <InputField label="Nombre" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-orange">
+        <InputField label="Nombre" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
         <select value={role} onChange={(e) => setRole(e.target.value)} className="border p-2 rounded">
           <option value="USER">Usuario</option>
           <option value="ADMIN">Administrador</option>
@@ -63,13 +63,14 @@ const UserForm = ({ userId, initialName, initialRole }: UserFormProps) => {
             disabled={ loading || noChangesMade } 
             label="Actualizar" 
             // onClick={() => router.push("/users")}
+            className="bg-[#E84797] hover:bg-[#203F9A]"
           />
 
           <Button 
             type="button" 
             onClick={() => router.back()} 
             label="Atrás" 
-            className="bg-gray-400 hover:bg-gray-500"
+            className="bg-[#4E7CB2] hover:bg-[#E7A0CC]"
           />
 
         </div>

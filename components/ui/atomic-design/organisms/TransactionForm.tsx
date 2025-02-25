@@ -6,10 +6,12 @@ import { Currency, TransactionType } from "@prisma/client";
 import InputField from "../atoms/InputField";
 import Button from "../atoms/Button";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 
 const TransactionForm = () => {
     const {data: session} = useSession();
+    const router = useRouter();
 
     const [amount, setAmount] = useState("");
     const [concept, setConcept] = useState("");
@@ -59,10 +61,10 @@ const TransactionForm = () => {
     };
 
     return (
-        <div className="bg-gray-200 p6 rounded-lg shadow-md w-full max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4">Nuevo Movimiento de Dinero</h2>
+        <div className="bg-white rounded-lg shadow-md w-full max-w-md mx-auto">
+            <h2 className="text-xl font-bold mb-4 text-pink">Nuevo Movimiento de Dinero</h2>
             {error && <p className="text-red-500 mb-4">{error}</p>}
-            <form onSubmit={handleSumbit} className="flex flex-col gap-4">
+            <form onSubmit={handleSumbit} className="flex flex-col gap-4 text-orange">
                 <InputField label="Monto" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
                 <InputField label="Concepto" type="string" value={concept} onChange={(e) => setConcept(e.target.value)} />
                 <InputField label="Fecha"  type="date" value={date} onChange={(e) => setDate(e.target.value)} />
@@ -72,7 +74,10 @@ const TransactionForm = () => {
                     <option value="EXPENSE">Egreso</option>
                 </select>
 
-                <Button type="submit" disabled={loading} label="Ingresar" >
+                <Button type="submit" disabled={loading} label="Ingresar" className="bg-orange">
+                    
+                </Button>
+                <Button type="button" disabled={loading} label="Regresar" className="bg-orange" onClick={() => router.push("/transactions")}>
                     
                 </Button>
 

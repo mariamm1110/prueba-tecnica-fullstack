@@ -14,7 +14,7 @@ import {
   import Button from '../atoms/Button';
   import { signOut, useSession } from 'next-auth/react';
   import Image from 'next/image';
-import { Calendar, ChartColumnBig, ContactRound, HandCoins, Home, Inbox } from 'lucide-react';
+import { Calendar, ChartColumnBig, ContactRound, HandCoins, Home, HomeIcon, Inbox } from 'lucide-react';
 import { NavUser } from '../molecules/nav-user';
 
 
@@ -37,6 +37,11 @@ import { NavUser } from '../molecules/nav-user';
             title: "Reportes",
             url: "/reports",
             icon: ChartColumnBig,
+          },
+          {
+            title: "Inicio",
+            url: "/",
+            icon: HomeIcon,
           },
         ]
 

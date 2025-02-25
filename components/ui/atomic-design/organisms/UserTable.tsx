@@ -14,7 +14,7 @@ const UserTable = () => {
         <div className="w-full rounded-lg shadow-md overflow-hidden">
                     <table className="w-full">
                         <thead>
-                            <TableHeader titles={["Nombre", "Correo", "Telefono", "Accion"]} />
+                            <TableHeader titles={["Nombre", "Correo", "Rol", "Accion"]} />
         
                         </thead>
                         <tbody>

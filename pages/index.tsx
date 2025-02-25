@@ -1,3 +1,4 @@
+import HomeTemplate from "@/components/ui/templates/HomeTemplate";
 import { useRequireAuth } from "@/hooks/useRequireAuth";
 
 export default function Home() {
@@ -8,10 +9,7 @@ export default function Home() {
     }
 
     return (
-        <div>
-            <h1>Home - Protected</h1>
-            <p>Welcome, {session?.user?.name}</p>
-        </div>
+        <HomeTemplate/>
     );
 }
 
