@@ -10,7 +10,7 @@ export interface TableRowProps {
 
 export default function TableRow({ concept, amount, date, user, type }: TableRowProps) {
     return (
-        <tr className="grid grid-cols-4 bg-white py-2 px-4 border-b items-center">
+        <tr className="grid grid-cols-4 py-2 px-4 border-b items-center bg-white">
             <td>{concept}</td>
             <td className={type === 'INCOME' ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'}>
                 {amount.toFixed(2)}

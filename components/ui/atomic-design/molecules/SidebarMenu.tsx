@@ -5,7 +5,7 @@ import SidebarButton from '../atoms/SidebarButton';
 
 export default function SidebarMenu() {
     return (
-        <div className='flex flex-col w-full bg-gray-200 h-screen px-2 py-4'>
+        <div className='flex flex-col w-full bg-gray-200 px-2 py-4 justify-between'>
             <div>
 
             <div className='text-xl font-bold text-center mb-6'>LOGO</div>

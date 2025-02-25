@@ -8,7 +8,8 @@ const Header = () => {
     const { data: session } = useSession();
 
     const showButton = router.pathname !== "/transactions/new" && session?.user.role === "ADMIN";
-    console.log(session?.user);
+    console.log(session?.user.role);
+    
 
     return (
         
@@ -22,6 +23,7 @@ const Header = () => {
                 <Button
                     onClick={() => router.push('/transactions/new')}
                     label="Nuevo"
+                    className="bg-pink"
                 >
 
                 </Button>

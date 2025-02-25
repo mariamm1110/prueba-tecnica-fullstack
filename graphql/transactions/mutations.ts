@@ -13,13 +13,15 @@ export const transactionMutations = {
             concept, 
             type, 
             currency, 
-            userId 
+            userId,
+            date
         }: { 
             amount: number, 
             concept: string, 
             type: string, 
             currency: string, 
-            userId:string}, 
+            userId:string,
+            date: Date}, 
             { db, authData }: Context
         ) => {
         
@@ -41,7 +43,7 @@ export const transactionMutations = {
                 concept,
                 type: type as TransactionType,
                 currency: currency as Currency,
-                date: new Date(),
+                date,
                 userId: authData.id
             },
         });

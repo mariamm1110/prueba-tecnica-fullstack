@@ -11,11 +11,12 @@ export default function TableRowU({ user }: { user: any}) {
         <tr className="grid grid-cols-4 bg-white py-2 px-4 border-b items-center">
             <td>{user.name}</td>
             <td>{user.email}</td>
-            <td>{user.phone}</td>
+            <td className="text-dblue">1234</td>
             <td>
                 <Button
                     label="Editar"
-                    onClick={() => router.push(`users/edit/${user.id}`)}
+                    onClick={() => router.push(`/users/edit/${user.id}`)}
+                    className="bg-orange"
                 >
                 </Button>
             </td>

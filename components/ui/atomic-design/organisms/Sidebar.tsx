@@ -7,7 +7,7 @@ import SidebarMenu from "../molecules/SidebarMenu"
 const Sidebar = () => {
     return(
 
-    <aside className="bg-gray-200 h-screen p-4 flex flex-col">
+    <aside className="flex flex-col h-screen overflow-y-auto">
         <div>
             <div className="mb-8">
                 <Logo />

@@ -24,6 +24,7 @@ export const CREATE_TRANSACTION = gql`
     $type: TransactionType!, 
     $currency: Currency!, 
     $userId: String!
+    $date: DateTime!
   ) {
     createTransaction(
       amount: $amount, 
@@ -31,6 +32,7 @@ export const CREATE_TRANSACTION = gql`
       type: $type, 
       currency: $currency, 
       userId: $userId
+      date: $date
     ) {
       id
       amount

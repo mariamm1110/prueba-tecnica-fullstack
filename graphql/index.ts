@@ -4,6 +4,8 @@ import { transactionResolvers } from "./transactions/resolvers";
 import { userTypes } from "./users/types";
 import { userResolvers } from "./users/resolvers";
 import { sessionTypes } from "./session/types";
+import { reportTypes } from "./reports/types";
+import { reportResolvers } from "./reports/resolvers";
 
 
 const defaultTypes = gql`
@@ -12,5 +14,5 @@ const defaultTypes = gql`
   type Mutation
 `;
 
-export const types = [defaultTypes, transactionTypes, userTypes, sessionTypes];
-export const resolvers = [transactionResolvers, userResolvers];
+export const types = [defaultTypes, transactionTypes, userTypes, sessionTypes, reportTypes];
+export const resolvers = [transactionResolvers, userResolvers, reportResolvers];
