@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import dotenv from "dotenv";
 
-dotenv.config();
+// dotenv.config();
 
 
 console.log("Using DATABASE_URL:", process.env.TEST_DATABASE_URL);
@@ -9,9 +9,9 @@ console.log("Using DATABASE_URL:", process.env.TEST_DATABASE_URL);
 async function testPrismaConnection() {
     try {
         await prisma.$connect();
-        console.log("✅ Connected to the test database!");
+        console.log("Connected to the test database!");
     } catch (error) {
-        console.error("❌ Prisma failed to connect:", error);
+        console.error("Prisma failed to connect:", error);
     }
 }
 testPrismaConnection();
