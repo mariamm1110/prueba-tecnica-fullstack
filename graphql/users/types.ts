@@ -12,10 +12,10 @@ export const userTypes = gql`
     role: Role!
     }
 
-    enum Role {
-        ADMIN
-        USER
-    }
+   type Role {
+    id: ID!
+    name: String
+}
         
     extend type Query {
         getUsers: [User!]!
@@ -24,7 +24,7 @@ export const userTypes = gql`
     }
         
     extend type Mutation {
-        updateUser(id: ID!, name: String, role: Role): User
+        updateUser(id: ID!, name: String, roleId: ID! ): User
         deleteUser(id: ID!): Boolean
     }`
 

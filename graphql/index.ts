@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 import { transactionTypes } from "./transactions/types";
+import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
 import { transactionResolvers } from "./transactions/resolvers";
 import { userTypes } from "./users/types";
 import { userResolvers } from "./users/resolvers";
@@ -14,5 +15,5 @@ const defaultTypes = gql`
   type Mutation
 `;
 
-export const types = [defaultTypes, transactionTypes, userTypes, sessionTypes, reportTypes];
+export const types = mergeTypeDefs([defaultTypes, transactionTypes, userTypes, sessionTypes, reportTypes]);
 export const resolvers = [transactionResolvers, userResolvers, reportResolvers];

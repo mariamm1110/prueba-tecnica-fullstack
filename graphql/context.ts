@@ -5,11 +5,16 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export const createContext = async ({ req, res }: { req: any; res: any }) => {
-  const session = await getServerSession(req, res, authOptions);
+  let session = null;
+
+  // Only fetch session if it's not a test
+  if (process.env.NODE_ENV !== "test") {
+      session = await getServerSession(req, res, authOptions);
+  }
 
   return {
-    db: prisma,
-    authData: session?.user ?? null,
+      db: prisma,
+      authData: session?.user ?? null,
   };
 };
 
