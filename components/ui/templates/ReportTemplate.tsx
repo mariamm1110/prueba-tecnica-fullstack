@@ -31,16 +31,16 @@ const ReportTemplate = () => {
             ["Gastos Totales", totalExpenses],
             ["Saldo", balance],
         ]
-            .map((e) => e.join(","))
-            .join("\n");
+            .map((e) => e.join(",")) //convertir en formato csv
+            .join("\n"); //salto de linea
 
-        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" }); //crea el archivo y especifica para que el navegador lo reconozca
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href=url;
         link.download = "reporte-financiero.csv";
         link.click();
-        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url); //liberar memoria del navegador
     };
 
     return (

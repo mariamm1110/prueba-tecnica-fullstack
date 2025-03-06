@@ -21,6 +21,7 @@ export const reportResolvers = {
 
             const balance = totalIncome - totalExpenses;
 
+            //objeto
             const monthlyData = transactions.reduce((acc: Record<string, { income: number; expenses: number }>, transaction) => {
                 const month = new Date(transaction.date).toLocaleString("default", { month: "long" });
 
@@ -43,11 +44,13 @@ export const reportResolvers = {
                 "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
               ];
 
+              //array
             const monthlyTransactions = Object.entries(monthlyData).map(([month, values]) => ({
                 month,
                 income: values.income || 0,
                 expenses: values.expenses || 0,
             }))
+            //posicion de cada mes
             .sort((a, b) => monthsOrder.indexOf(a.month) - monthsOrder.indexOf(b.month));
 
             return {

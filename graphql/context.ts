@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export const createContext = async ({ req, res }: { req: any; res: any }) => {
+export const createContext = async ({ req, res }: { req: NextApiRequest; res: NextApiResponse }) => {
   const session = await getServerSession(req, res, authOptions);
 
   return {
