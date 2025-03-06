@@ -6,7 +6,6 @@ import Button from "../atoms/Button";
 export default function TableRowU({ user }: { user: any}) {
 
     const router = useRouter();
-    console.log(user);
     
 
     return (

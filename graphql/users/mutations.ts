@@ -1,5 +1,6 @@
 import { Context } from "@/types";
 import { Enum_RoleName } from "@prisma/client";
+import { GraphQLError } from "graphql";
 
 
 export const userMutations = {
@@ -42,6 +43,9 @@ export const userMutations = {
         if (!authData || authData.role !== "ADMIN") {
             throw new Error("Not authorized");
         }
+
+        const user = await db.user.findUnique({ where: { id } });
+                if (!user) throw new GraphQLError("User not found");
 
         await db.user.delete({ where: { id } });
 

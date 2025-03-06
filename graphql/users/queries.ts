@@ -3,9 +3,9 @@ import { Context } from "@/types";
 
 export const userQueries = {
     getUsers: async (_:any, __:any, { db, authData }: Context) => {
-        // if (!authData || authData.role !== "ADMIN") {
-        //     throw new Error("Not authorized");
-        // }
+        if (!authData || authData.role !== "ADMIN") {
+            throw new Error("Not authorized");
+        }
 
         if (!db) {
             throw new Error("Database connection is missing.");

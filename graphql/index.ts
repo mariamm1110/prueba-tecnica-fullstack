@@ -3,9 +3,9 @@ import { transactionTypes } from "./transactions/types";
 import { transactionResolvers } from "./transactions/resolvers";
 import { userTypes } from "./users/types";
 import { userResolvers } from "./users/resolvers";
-import { sessionTypes } from "./session/types";
 import { reportTypes } from "./reports/types";
 import { reportResolvers } from "./reports/resolvers";
+import { sessionTypes } from "./session/types";
 
 
 const defaultTypes = gql`

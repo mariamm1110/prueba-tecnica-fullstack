@@ -14,7 +14,7 @@ type UserFormProps = {
 
 const UserForm = ({ userId, initialName, initialRole }: UserFormProps) => {
   const router = useRouter();
-  console.log(userId, initialName, initialRole);
+  // console.log(userId, initialName, initialRole);
   const [name, setName] = useState(initialName);
   const [role, setRole] = useState(initialRole);
   const [error, setError] = useState("");
