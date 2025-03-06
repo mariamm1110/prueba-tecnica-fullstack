@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
-console.log("Using DATABASE_URL:", process.env.DATABASE_URL);
+console.log("Using DATABASE_URL:", process.env.TEST_DATABASE_URL);
 
 async function testPrismaConnection() {
     try {

@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions ={
 
         if (!existingUser) {
           // Create new user if not existing
-          const newUser = await prisma.user.create({
+          await prisma.user.create({
             data: {
               email: user.email,
               name: user.name ?? user.email.split("@")[0],
@@ -67,7 +67,9 @@ export const authOptions: NextAuthOptions ={
                 },
               },
             },
+            
           });
+          console.log("entra 1");
         } else if (existingUser && existingUser.accounts.length === 0) {
           // Create account if existing user but missing account
           await prisma.account.create({
@@ -85,6 +87,7 @@ export const authOptions: NextAuthOptions ={
               session_state: account.session_state,
             },
           });
+          console.log("entra 2");
         }
       }
 
