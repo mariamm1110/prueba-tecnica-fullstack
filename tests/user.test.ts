@@ -6,33 +6,33 @@ import { setupTestData, cleanupTestData } from "./setup";
 import { createContext } from "@/graphql/context";
 
 let server: ApolloServer;
-let contextValue: any; // Store context manually
+let contextValue: any; 
 
 beforeAll(async () => {
-    console.log("🚀 Setting up test environment...");
+    console.log("setting up test environment...");
 
-    // ✅ Create Apollo Schema
+    
     const schema = makeExecutableSchema({
         typeDefs: types,
         resolvers,
     });
 
-    // ✅ Initialize Apollo Server (no context here)
+    
     server = new ApolloServer({
         schema,
     });
 
     await server.start();
 
-    // ✅ Fetch the context manually to pass later
+    
     contextValue = await createContext({ req: {}, res: {} });
 
-    // ✅ Setup test data in the database
+   
     await setupTestData();
 });
 
 afterAll(async () => {
-    console.log("🧹 Cleaning up test data...");
+    console.log(" Cleaning up test data...");
     await cleanupTestData();
 });
 
@@ -52,10 +52,10 @@ describe("User Queries", () => {
             }
         `;
 
-        console.log("🔍 Executing GraphQL Query...");
+        console.log(" executing GraphQL Query...");
         const response = await server.executeOperation(
             { query },
-            { contextValue } // ✅ Inject context manually
+            { contextValue } 
         );
 
         console.log("GraphQL Response:", JSON.stringify(response, null, 2));
