@@ -1,3 +1,6 @@
+## URL Vercel
+https://prueba-tecnica-fullstack-git-main-mariamm1110s-projects.vercel.app/
+
 ## Instalación y Configuración Local
 
 ### Requisitos Previos
@@ -8,8 +11,8 @@
 
 1. **Clonar el repositorio:**
   ```
-   git clone https://github.com/tu-usuario/tu-repo.git
-   cd tu-repo
+   git clone https://github.com/tu-usuario/tu-repo.git](https://github.com/mariamm1110/prueba-tecnica-fullstack
+   cd ruta-carpeta
   ```
   
 2. **Instalar dependencias:**
